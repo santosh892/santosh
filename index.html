@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S.K</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: #111;
+        font-family: Arial, sans-serif;
+        color: white;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Top fixed typing text */
+    .typing-header {
+        position: fixed;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 58px;
+        font-weight: bold;
+        color: #60a5fa;
+    }
+
+    /* Middle button */
+    .button-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .warning-button {
+        background-color: red;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: 0.3s;
+    }
+
+    .warning-button:hover {
+        background-color: darkred;
+    }
+
+    .warning-icon {
+        font-size: 24px;
+    }
+
+    /* Bottom-left animated name */
+    .name-container {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .animated-name {
+        font-size: 34px;
+        font-weight: bold;
+        display: flex;
+        gap: 2px;
+    }
+
+    .animated-name span {
+        animation: colorChange 2s infinite;
+    }
+
+    @keyframes colorChange {
+        0% { color: #f87171; }
+        25% { color: #fbbf24; }
+        50% { color: #34d399; }
+        75% { color: #60a5fa; }
+        100% { color: #f87171; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Top typing header -->
+<div class="typing-header" id="typing-header"></div>
+
+<!-- Middle button -->
+<div class="button-container">
+    <button class="warning-button" onclick="goNextPage()">
+        <span class="warning-icon">⚠️</span> Click to Continue
+    </button>
+</div>
+
+<!-- Bottom-left animated name -->
+<div class="name-container">
+    <div class="animated-name" id="animated-name"></div>
+</div>
+
+<script>
+    // Typing effect for header
+    const typingText = ["Hi", "Hello", "Hola", "Bonjour", "Nǐ hǎo", "Namaste", "Salve", "Konnichiwa"];
+    const typingHeader = document.getElementById("typing-header");
+
+    let arrayIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+        let currentText = typingText[arrayIndex];
+        if (!isDeleting) {
+            typingHeader.textContent = currentText.slice(0, charIndex++);
+            if (charIndex > currentText.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 1000);
+                return;
+            }
+        } else {
+            typingHeader.textContent = currentText.slice(0, charIndex--);
+            if (charIndex === 0) {
+                isDeleting = false;
+                arrayIndex = (arrayIndex + 1) % typingText.length;
+            }
+        }
+        setTimeout(typeEffect, isDeleting ? 80 : 120);
+    }
+    typeEffect();
+
+    // Animated name
+    const nameText = "Santosh Khadka";
+    const nameContainer = document.getElementById("animated-name");
+    for (let letter of nameText) {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        nameContainer.appendChild(span);
+    }
+
+    function goNextPage() {
+        window.location.href = "Next.html"; // replace with your target page
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
