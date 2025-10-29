@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Gallery</title>
+  <style>
+    :root {
+      --bg: #030516;
+      --accent1: #00f5ff;
+      --accent2: #b400ff;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text: #eaf7ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      background: radial-gradient(circle at 30% 30%, #060b25 0%, var(--bg) 70%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      background: var(--card-bg);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover img {
+      opacity: 0.9;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 20, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+    }
+
+    .lightbox.show {
+      display: flex;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      color: var(--accent1);
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(6px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #7f9dbf;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌌Travel Gallery 🌍</h1>
+    <p>Explore moments from worlds beyond imagination</p>
+  </header>
+
+  <div class="gallery">
+    <!-- 🔹 Add your images here -->
+    <div class="card"><img src="Image/travell.jpg" alt="View"></div>
+    <div class="card"><img src="Image/photo_1_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+
+<div class="card"><img src="Image/photo_2_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_3_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_4_2025-10-28_23-26-26.jpg" alt="Mountain"></div> 
+    <div class="card"><img src="Image/photo_5_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_6_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_7_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_8_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_9_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_10_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_11_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_12_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_13_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_14_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_15_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_16_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_17_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_18_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_19_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_20_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_21_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_22_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_23_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_24_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_25_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- add more cards as needed -->
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="close-btn" id="closeBtn">✕</span>
+    <img src="" alt="Preview">
+  </div>
+
+  <footer>© 2025 Nebula Travels | Made with 💫 cosmic energy</footer>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const closeBtn = document.getElementById('closeBtn');
+
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('show');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => lightbox.classList.remove('show'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('show');
+    });
+  </script>
+</body>
+</html>
+
