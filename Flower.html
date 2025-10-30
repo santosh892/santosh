@@ -20,6 +20,7 @@
       color: #2e8b57;
     }
 
+    /* 🌸 Petal animation */
     .petal {
       position: absolute;
       width: 10px;
@@ -36,21 +37,27 @@
       100% { transform: translateY(500px) scale(0.5); opacity: 0; }
     }
 
+    /* 🌺 Responsive grid gallery */
     .flower-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 20px;
+      justify-items: center;
+      padding: 0 10px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .flower-card {
-      width: 250px;
-      height: 250px;
+      width: 100%;
+      aspect-ratio: 1 / 1; /* keeps square shape */
       overflow: hidden;
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       position: relative;
       transition: transform 0.3s, box-shadow 0.3s;
+      background: white;
+      cursor: pointer;
     }
 
     .flower-card img {
@@ -85,6 +92,29 @@
     .flower-card:hover .flower-caption {
       opacity: 1;
     }
+
+    /* 📱 Mobile fixes: keep grid look */
+    @media (max-width: 768px) {
+      .flower-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .flower-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 8px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -98,14 +128,14 @@
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Falling petals -->
+  <!-- 🌸 Falling petals -->
   <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
   <div class="petal" style="left: 30%; animation-delay: 1s;"></div>
   <div class="petal" style="left: 50%; animation-delay: 2s;"></div>
   <div class="petal" style="left: 70%; animation-delay: 3s;"></div>
   <div class="petal" style="left: 90%; animation-delay: 4s;"></div>
 
-  <!-- Flower gallery -->
+  <!-- 🌼 Flower gallery -->
   <div class="flower-gallery">
     <div class="flower-card"><img src="Image/rose2.jpg" alt="Flower 1"><div class="flower-caption">Rose</div></div>
     <div class="flower-card"><img src="Image/flower6.jpg" alt="Flower 2"><div class="flower-caption">Petunias</div></div>
@@ -114,32 +144,21 @@
     <div class="flower-card"><img src="Image/flower4.jpg" alt="Flower 5"><div class="flower-caption">Rhododendron arboreum</div></div>
     <div class="flower-card"><img src="Image/flower2.jpg" alt="Flower 6"><div class="flower-caption">Petunia</div></div>
 
-
-    <div class="flower-card"><img src="Image/flower01.jpg" alt="Flower 1"><div class="flower-caption">Hydrangea macrophylla</div></div>
-    <div class="flower-card"><img src="Image/flower9.jpg" alt="Flower 2"><div class="flower-caption">Rain lilly</div></div>
-    <div class="flower-card"><img src="Image/flower10.jpg" alt="Flower 3"><div class="flower-caption">Catharanthus roseus</div></div>
-    <div class="flower-card"><img src="Image/flower11.jpg" alt="Flower 4"><div class="flower-caption">Tropaeolum majus</div></div>
-    
-    <div class="flower-card"><img src="Image/flower12.jpg" alt="Flower 1"><div class="flower-caption">Pelargonium</div></div>
-    <div class="flower-card"><img src="Image/flower13.jpg" alt="Flower 2"><div class="flower-caption">Crapulous</div></div>
-    <div class="flower-card"><img src="Image/flower14.jpg" alt="Flower 3"><div class="flower-caption">Pink rain lilly</div></div>
-   
-
-
-
-
-    
+    <div class="flower-card"><img src="Image/flower01.jpg" alt="Flower 7"><div class="flower-caption">Hydrangea macrophylla</div></div>
+    <div class="flower-card"><img src="Image/flower9.jpg" alt="Flower 8"><div class="flower-caption">Rain lily</div></div>
+    <div class="flower-card"><img src="Image/flower10.jpg" alt="Flower 9"><div class="flower-caption">Catharanthus roseus</div></div>
+    <div class="flower-card"><img src="Image/flower11.jpg" alt="Flower 10"><div class="flower-caption">Tropaeolum majus</div></div>
+    <div class="flower-card"><img src="Image/flower12.jpg" alt="Flower 11"><div class="flower-caption">Pelargonium</div></div>
+    <div class="flower-card"><img src="Image/flower13.jpg" alt="Flower 12"><div class="flower-caption">Crapulous</div></div>
+    <div class="flower-card"><img src="Image/flower14.jpg" alt="Flower 13"><div class="flower-caption">Pink rain lily</div></div>
   </div>
 
   <script>
     const music = document.getElementById("bgMusic");
-
-    // Try to auto-play when the page loads
     window.addEventListener("load", () => {
       const playPromise = music.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // If autoplay is blocked, play after any click
           document.addEventListener("click", () => {
             music.play();
           }, { once: true });
@@ -150,6 +169,8 @@
 
 </body>
 </html>
+
+
 
 
 
