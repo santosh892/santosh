@@ -42,17 +42,17 @@
       color: #9bb0d0;
     }
 
-    /* GALLERY GRID */
+    /* 🧩 GALLERY GRID */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* auto adjusts columns */
+      gap: 10px;
       padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    /* CARD STYLE */
+    /* 🪩 CARD STYLE */
     .card {
       position: relative;
       overflow: hidden;
@@ -61,6 +61,7 @@
       background: var(--card-bg);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       cursor: pointer;
+      aspect-ratio: 1 / 1; /* keeps square grid boxes */
     }
 
     .card:hover {
@@ -68,7 +69,7 @@
       box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
     }
 
-    /* Image & Video Shared Styling */
+    /* 🔸 Image & Video Shared Style */
     .card img,
     .card video {
       width: 100%;
@@ -84,7 +85,7 @@
       opacity: 0.9;
     }
 
-    /* LIGHTBOX */
+    /* 💡 Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -129,11 +130,14 @@
       to { opacity: 1; }
     }
 
-    /* RESPONSIVE TWEAKS */
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.6rem; }
+    /* 📱 Mobile Tweaks */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* keeps 2–3 columns on phones */
+        gap: 8px;
+      }
+      header h1 { font-size: 1.5rem; }
       header p { font-size: 0.9rem; }
-      .gallery { gap: 10px; padding: 10px; }
     }
 
     footer {
@@ -151,12 +155,10 @@
   </header>
 
   <div class="gallery">
-    <!-- 🔹 IMAGES -->
+    <!-- 🔹 Images -->
     <div class="card"><img src="Image/travell.jpg" alt="View"></div>
     <div class="card"><img src="Image/photo_1_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
-
-
-<div class="card"><img src="Image/photo_2_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_2_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
     <div class="card"><img src="Image/photo_3_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
     <div class="card"><img src="Image/photo_4_2025-10-28_23-26-26.jpg" alt="Mountain"></div> 
     <div class="card"><img src="Image/photo_5_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
@@ -197,48 +199,42 @@
 
 
 
-
-
-
-
-
-
-
-    <!-- 🔹 VIDEOS (autoplay muted preview) -->
+    <!-- 🔹 Videos -->
     <div class="card"><video src="Video/travel1.mp4" muted loop playsinline></video></div>
     <div class="card"><video src="Video/travel2.mp4" muted loop playsinline></video></div>
 
-    <!-- more image or video cards -->
+    <!-- More cards -->
+    <div class="card"><img src="Image/photo_3_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
+    <div class="card"><img src="Image/photo_4_2025-10-28_23-26-26.jpg" alt="Mountain"></div>
   </div>
 
   <div class="lightbox" id="lightbox">
     <span class="close-btn" id="closeBtn">✕</span>
-    <!-- Dynamic preview element -->
   </div>
 
   <footer>© 2025 Nebula Travels | Made with 💫 cosmic energy</footer>
 
   <script>
     const lightbox = document.getElementById('lightbox');
-    const closeBtn = document.getElementById('closeBtn');
-
-    // Create elements for lightbox dynamically
-    const lightboxImg = document.createElement('img');
-    const lightboxVideo = document.createElement('video');
-    lightboxVideo.controls = true;
 
     // Handle both image and video clicks
     document.querySelectorAll('.gallery .card').forEach(card => {
       card.addEventListener('click', () => {
         const media = card.querySelector('img, video');
-        lightbox.innerHTML = '<span class="close-btn" id="closeBtn">✕</span>'; // reset
+        lightbox.innerHTML = '<span class="close-btn" id="closeBtn">✕</span>'; // reset content
+
         if (media.tagName === 'IMG') {
-          lightboxImg.src = media.src;
-          lightbox.appendChild(lightboxImg);
+          const img = document.createElement('img');
+          img.src = media.src;
+          lightbox.appendChild(img);
         } else if (media.tagName === 'VIDEO') {
-          lightboxVideo.src = media.src;
-          lightbox.appendChild(lightboxVideo);
+          const vid = document.createElement('video');
+          vid.src = media.src;
+          vid.controls = true;
+          vid.autoplay = true;
+          lightbox.appendChild(vid);
         }
+
         lightbox.classList.add('show');
         document.getElementById('closeBtn').addEventListener('click', () => lightbox.classList.remove('show'));
       });
@@ -250,6 +246,7 @@
   </script>
 </body>
 </html>
+
 
 
 
