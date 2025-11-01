@@ -563,21 +563,26 @@
 
 
 
-<!-- Centered small autoplay video -->
+
+<!-- Centered small autoplay video (moved further down) -->
 <div style="
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 150px;   /* ⬅ increased to move it further down */
 ">
   <video autoplay loop muted playsinline 
-         style="width: 120px; border-radius: 12px; box-shadow: 0 0 14px rgba(0,0,0,0.4);">
+         style="
+           width: 100px;        
+           height: 120px;       
+           object-fit: cover;
+           border-radius: 10px;
+           box-shadow: 0 0 8px rgba(0,0,0,0.4);
+         ">
     <source src="Image/fireword (1).mov" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
-
-
 
 
 
@@ -839,6 +844,7 @@
 
 
   
+
 
 
 
