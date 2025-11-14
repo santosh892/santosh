@@ -1,154 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S.K</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S.K</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-…"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+  <style>
     body {
-        margin: 0;
-        height: 100vh;
-        background-color: #111;
-        font-family: Arial, sans-serif;
-        color: white;
-        overflow: hidden;
-        position: relative;
+      margin: 0;
+      height: 100vh;
+      background-color: #111;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow: visible;
+      position: relative;
     }
 
-    /* Top fixed typing text */
     .typing-header {
-        position: fixed;
-        top: 20px;
-        width: 100%;
-        text-align: center;
-        font-size: 58px;
-        font-weight: bold;
-        color: #60a5fa;
+      position: fixed;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 58px;
+      font-weight: bold;
+      color: #60a5fa;
     }
 
-    /* Middle button */
     .button-container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .warning-button {
-        background-color: red;
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-        padding: 15px 40px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: 0.3s;
+      background-color: red;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
     }
 
     .warning-button:hover {
-        background-color: darkred;
+      background-color: darkred;
     }
 
     .warning-icon {
-        font-size: 24px;
+      font-size: 24px;
     }
 
-    /* Bottom-left animated name */
     .name-container {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .animated-name {
-        font-size: 34px;
-        font-weight: bold;
-        display: flex;
-        gap: 2px;
+      font-size: 34px;
+      font-weight: bold;
+      display: flex;
+      gap: 2px;
     }
 
     .animated-name span {
-        animation: colorChange 2s infinite;
+      animation: colorChange 2s infinite;
     }
 
     @keyframes colorChange {
-        0% { color: #f87171; }
-        25% { color: #fbbf24; }
-        50% { color: #34d399; }
-        75% { color: #60a5fa; }
-        100% { color: #f87171; }
+      0%   { color: #f87171; }
+      25%  { color: #fbbf24; }
+      50%  { color: #34d399; }
+      75%  { color: #60a5fa; }
+      100% { color: #f87171; }
     }
-</style>
+
+    /* Social Icons above the button */
+    .social-icons {
+      position: fixed;
+      /* Set it a little above the button container */
+      top: calc(50% - 80px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 28px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #60a5fa;
+    }
+
+  </style>
 </head>
 <body>
 
-<!-- Top typing header -->
-<div class="typing-header" id="typing-header"></div>
+  <div class="typing-header" id="typing-header"></div>
 
-<!-- Middle button -->
-<div class="button-container">
+  <div class="social-icons">
+    <a href="https://github.com/santosh892" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-github"></i>
+
+    <a href="https://github.com/santosh8292" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-github"></i>
+
+ 
+
+    </a>
+    <a href="https://www.instagram.com/santoshchhetri1?igsh=ZmozOGliemMwbzF6" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-instagram"></i>
+
+       <a href="https://www.instagram.com/santosh_chhetri58?igsh=c3I0emJ2ZDM0YmY0" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-instagram"></i>
+
+<a href="https://linkedin.com/in/yourLinkedInProfile" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-linkedin-in"></i>
+
+<a href="https://www.facebook.com/santosh.MegaEth" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-facebook-f"></i>
+
+
+    <a href="https://www.facebook.com/santosh.ether" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-facebook-f"></i>
+
+
+
+
+    </a>
+  </div>
+
+  <div class="button-container">
     <button class="warning-button" onclick="goNextPage()">
-        <span class="warning-icon">⚠️</span> Click to Continue
+      <span class="warning-icon">⚠️</span> Click to Continue
     </button>
-</div>
+  </div>
 
-<!-- Bottom-left animated name -->
-<div class="name-container">
+  <div class="name-container">
     <div class="animated-name" id="animated-name"></div>
-</div>
+  </div>
 
-<script>
-    // Typing effect for header
-    const typingText = ["Hi", "Hello", "Hola", "Bonjour", "Nǐ hǎo", "Namaste", "Salve", "Konnichiwa"];
+  <script>
+    const typingText  = ["Hi", "Hello", "Hola", "Bonjour", "Nǐ hǎo", "Namaste", "Salve", "Konnichiwa"];
     const typingHeader = document.getElementById("typing-header");
-
     let arrayIndex = 0;
-    let charIndex = 0;
+    let charIndex  = 0;
     let isDeleting = false;
 
     function typeEffect() {
-        let currentText = typingText[arrayIndex];
-        if (!isDeleting) {
-            typingHeader.textContent = currentText.slice(0, charIndex++);
-            if (charIndex > currentText.length) {
-                isDeleting = true;
-                setTimeout(typeEffect, 1000);
-                return;
-            }
-        } else {
-            typingHeader.textContent = currentText.slice(0, charIndex--);
-            if (charIndex === 0) {
-                isDeleting = false;
-                arrayIndex = (arrayIndex + 1) % typingText.length;
-            }
+      const currentText = typingText[arrayIndex];
+      if (!isDeleting) {
+        typingHeader.textContent = currentText.slice(0, charIndex++);
+        if (charIndex > currentText.length) {
+          isDeleting = true;
+          setTimeout(typeEffect, 1000);
+          return;
         }
-        setTimeout(typeEffect, isDeleting ? 80 : 120);
+      } else {
+        typingHeader.textContent = currentText.slice(0, charIndex--);
+        if (charIndex === 0) {
+          isDeleting = false;
+          arrayIndex = (arrayIndex + 1) % typingText.length;
+        }
+      }
+      setTimeout(typeEffect, isDeleting ? 80 : 120);
     }
     typeEffect();
 
-    // Animated name
-    const nameText = "Santosh Khadka";
+    const nameText      = "Santosh Khadka"; 
     const nameContainer = document.getElementById("animated-name");
     for (let letter of nameText) {
-        const span = document.createElement("span");
-        span.textContent = letter;
-        nameContainer.appendChild(span);
+      const span = document.createElement("span");
+      span.textContent = letter;
+      nameContainer.appendChild(span);
     }
 
     function goNextPage() {
-        window.location.href = "Next.html"; // replace with your target page
+      window.location.href = "Next.html"; // replace as needed
     }
-</script>
+  </script>
 
 </body>
 </html>
+
 
 
 
