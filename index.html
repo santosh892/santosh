@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>S.K</title>
-  <!-- Font Awesome CDN -->
+  <title>V-Shape Social</title>
+
+  <!-- Font Awesome -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-…"
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       margin: 0;
@@ -17,8 +17,7 @@
       background-color: #111;
       font-family: Arial, sans-serif;
       color: white;
-      overflow: visible;
-      position: relative;
+      overflow: hidden;
     }
 
     .typing-header {
@@ -31,9 +30,56 @@
       color: #60a5fa;
     }
 
+    /* -------- V-SHAPE SOCIAL ICONS -------- */
+    .social-icons {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-auto-rows: 60px;
+      gap: 10px 20px;
+      z-index: 10;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 26px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #60a5fa;
+      transform: translateY(-5px);
+    }
+
+    /* Grid positions for requested V-shape */
+    /* Row 1 */
+    .row1-left   { grid-column: 1; grid-row: 1; }  /* GitHub 1 */
+    .row1-right  { grid-column: 5; grid-row: 1; }  /* Facebook 1 */
+
+    /* Row 2 */
+    .row2-left   { grid-column: 2; grid-row: 2; }  /* GitHub 2 */
+    .row2-right  { grid-column: 4; grid-row: 2; }  /* Facebook 2 */
+
+    /* Row 3 (Bottom row) */
+    .row3-left   { grid-column: 2; grid-row: 3; }  /* Instagram 1 */
+    .row3-right  { grid-column: 4; grid-row: 3; }  /* Instagram 2 */
+
+    /* Row 4 (Bottom center) */
+    .row4-center { grid-column: 3; grid-row: 4; }  /* LinkedIn */
+
+    /* -------- BUTTON -------- */
     .button-container {
       position: fixed;
-      top: 50%;
+      top: 88%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
@@ -61,103 +107,51 @@
       font-size: 24px;
     }
 
-    .name-container {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .animated-name {
-      font-size: 34px;
-      font-weight: bold;
-      display: flex;
-      gap: 2px;
-    }
-
-    .animated-name span {
-      animation: colorChange 2s infinite;
-    }
-
-    @keyframes colorChange {
-      0%   { color: #f87171; }
-      25%  { color: #fbbf24; }
-      50%  { color: #34d399; }
-      75%  { color: #60a5fa; }
-      100% { color: #f87171; }
-    }
-
-    /* Social Icons above the button */
-    .social-icons {
-      position: fixed;
-      /* Set it a little above the button container */
-      top: calc(50% - 80px);
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      z-index: 10;
-    }
-
-    .social-icons a {
-      color: white;
-      font-size: 28px;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .social-icons a:hover {
-      color: #60a5fa;
-    }
-
   </style>
 </head>
 <body>
 
   <div class="typing-header" id="typing-header"></div>
 
+  <!-- ----------- SOCIAL ICONS V SHAPE ----------- -->
   <div class="social-icons">
-    <a href="https://github.com/santosh892" target="_blank" rel="noopener noreferrer">
+
+    <!-- Row 1 -->
+    <a class="row1-left" href="https://github.com/santosh892" target="_blank">
       <i class="fab fa-github"></i>
+    </a>
+    <a class="row1-right" href="https://www.facebook.com/santosh.MegaEth" target="_blank">
+      <i class="fab fa-facebook-f"></i>
+    </a>
 
-    <a href="https://github.com/santosh8292" target="_blank" rel="noopener noreferrer">
+    <!-- Row 2 -->
+    <a class="row2-left" href="https://github.com/santosh8292" target="_blank">
       <i class="fab fa-github"></i>
-
- 
-
     </a>
-    <a href="https://www.instagram.com/santoshchhetri1?igsh=ZmozOGliemMwbzF6" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-instagram"></i>
-
-       <a href="https://www.instagram.com/santosh_chhetri58?igsh=c3I0emJ2ZDM0YmY0" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-instagram"></i>
-
-<a href="https://linkedin.com/in/yourLinkedInProfile" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-linkedin-in"></i>
-
-<a href="https://www.facebook.com/santosh.MegaEth" target="_blank" rel="noopener noreferrer">
-    <i class="fab fa-facebook-f"></i>
-
-
-    <a href="https://www.facebook.com/santosh.ether" target="_blank" rel="noopener noreferrer">
-    <i class="fab fa-facebook-f"></i>
-
-
-
-
+    <a class="row2-right" href="https://www.facebook.com/santosh.ether" target="_blank">
+      <i class="fab fa-facebook-f"></i>
     </a>
+
+    <!-- Row 3 -->
+    <a class="row3-left" href="https://www.instagram.com/santoshchhetri1" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a class="row3-right" href="https://www.instagram.com/santosh_chhetri58" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <!-- Row 4 -->
+    <a class="row4-center" href="https://linkedin.com/in/yourLinkedInProfile" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+
   </div>
 
+  <!-- ---------------- CLICK BUTTON ---------------- -->
   <div class="button-container">
     <button class="warning-button" onclick="goNextPage()">
       <span class="warning-icon">⚠️</span> Click to Continue
     </button>
-  </div>
-
-  <div class="name-container">
-    <div class="animated-name" id="animated-name"></div>
   </div>
 
   <script>
@@ -187,16 +181,15 @@
     }
     typeEffect();
 
-
-    
-
     function goNextPage() {
-      window.location.href = "Next.html"; // replace as needed
+      window.location.href = "Next.html";
     }
   </script>
 
 </body>
 </html>
+
+
 
 
 
