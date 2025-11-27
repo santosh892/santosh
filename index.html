@@ -28,6 +28,7 @@
       font-size: 58px;
       font-weight: bold;
       color: #60a5fa;
+      z-index: 10;
     }
 
     /* -------- V-SHAPE SOCIAL ICONS -------- */
@@ -60,21 +61,14 @@
       transform: translateY(-5px);
     }
 
-    /* Grid positions for requested V-shape */
-    /* Row 1 */
-    .row1-left   { grid-column: 1; grid-row: 1; }  /* GitHub 1 */
-    .row1-right  { grid-column: 5; grid-row: 1; }  /* Facebook 1 */
-
-    /* Row 2 */
-    .row2-left   { grid-column: 2; grid-row: 2; }  /* GitHub 2 */
-    .row2-right  { grid-column: 4; grid-row: 2; }  /* Facebook 2 */
-
-    /* Row 3 (Bottom row) */
-    .row3-left   { grid-column: 2; grid-row: 3; }  /* Instagram 1 */
-    .row3-right  { grid-column: 4; grid-row: 3; }  /* Instagram 2 */
-
-    /* Row 4 (Bottom center) */
-    .row4-center { grid-column: 3; grid-row: 4; }  /* LinkedIn */
+    /* Grid positions for V-shape */
+    .row1-left   { grid-column: 1; grid-row: 1; }
+    .row1-right  { grid-column: 5; grid-row: 1; }
+    .row2-left   { grid-column: 2; grid-row: 2; }
+    .row2-right  { grid-column: 4; grid-row: 2; }
+    .row3-left   { grid-column: 2; grid-row: 3; }
+    .row3-right  { grid-column: 4; grid-row: 3; }
+    .row4-center { grid-column: 3; grid-row: 4; }
 
     /* -------- BUTTON -------- */
     .button-container {
@@ -82,6 +76,7 @@
       top: 88%;
       left: 50%;
       transform: translate(-50%, -50%);
+      z-index: 10;
     }
 
     .warning-button {
@@ -107,54 +102,44 @@
       font-size: 24px;
     }
 
+    /* Canvas for rain */
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1; /* behind content */
+    }
   </style>
 </head>
 <body>
 
+  <!-- Typing header -->
   <div class="typing-header" id="typing-header"></div>
 
-  <!-- ----------- SOCIAL ICONS V SHAPE ----------- -->
+  <!-- Social icons -->
   <div class="social-icons">
-
-    <!-- Row 1 -->
-    <a class="row1-left" href="https://github.com/santosh892" target="_blank">
-      <i class="fab fa-github"></i>
-    </a>
-    <a class="row1-right" href="https://www.facebook.com/santosh.MegaEth" target="_blank">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-
-    <!-- Row 2 -->
-    <a class="row2-left" href="https://github.com/santosh8292" target="_blank">
-      <i class="fab fa-github"></i>
-    </a>
-    <a class="row2-right" href="https://www.facebook.com/santosh.ether" target="_blank">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-
-    <!-- Row 3 -->
-    <a class="row3-left" href="https://www.instagram.com/santoshchhetri1" target="_blank">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a class="row3-right" href="https://www.instagram.com/santosh_chhetri58" target="_blank">
-      <i class="fab fa-instagram"></i>
-    </a>
-
-    <!-- Row 4 -->
-    <a class="row4-center" href="https://linkedin.com/in/yourLinkedInProfile" target="_blank">
-      <i class="fab fa-linkedin"></i>
-    </a>
-
+    <a class="row1-left" href="https://github.com/santosh892" target="_blank"><i class="fab fa-github"></i></a>
+    <a class="row1-right" href="https://www.facebook.com/santosh.MegaEth" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a class="row2-left" href="https://github.com/santosh8292" target="_blank"><i class="fab fa-github"></i></a>
+    <a class="row2-right" href="https://www.facebook.com/santosh.ether" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a class="row3-left" href="https://www.instagram.com/santoshchhetri1" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a class="row3-right" href="https://www.instagram.com/santosh_chhetri58" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a class="row4-center" href="https://linkedin.com/in/yourLinkedInProfile" target="_blank"><i class="fab fa-linkedin"></i></a>
   </div>
 
-  <!-- ---------------- CLICK BUTTON ---------------- -->
+  <!-- Button -->
   <div class="button-container">
     <button class="warning-button" onclick="goNextPage()">
       <span class="warning-icon">⚠️</span> Click to Continue
     </button>
   </div>
 
+  <!-- Rain canvas -->
+  <canvas id="canvas-club"></canvas>
+
   <script>
+    // Typing effect
     const typingText  = ["Hi", "Hello", "Hola", "Bonjour", "Nǐ hǎo", "Namaste", "Salve", "Konnichiwa"];
     const typingHeader = document.getElementById("typing-header");
     let arrayIndex = 0;
@@ -184,10 +169,75 @@
     function goNextPage() {
       window.location.href = "Next.html";
     }
+
+    // ---------------- RAIN CANVAS ----------------
+    const canvas = document.getElementById("canvas-club");
+    const ctx = canvas.getContext("2d");
+
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    class Raindrop {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = random(0, w);
+        this.y = random(-h, 0);
+        this.length = random(10, 20);
+        this.speed = random(4, 10);
+        this.opacity = random(0.1, 0.5);
+        this.width = random(1, 2);
+      }
+
+      update() {
+        this.y += this.speed;
+        if (this.y > h) this.reset();
+      }
+
+      draw(ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(174,194,224,${this.opacity})`;
+        ctx.lineWidth = this.width;
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x, this.y + this.length);
+        ctx.stroke();
+      }
+    }
+
+    const raindrops = [];
+    const numDrops = 500; // more drops = heavier rain
+
+    for (let i = 0; i < numDrops; i++) {
+      raindrops.push(new Raindrop());
+    }
+
+    function animateRain() {
+      ctx.clearRect(0, 0, w, h);
+      for (let drop of raindrops) {
+        drop.update();
+        drop.draw(ctx);
+      }
+      requestAnimationFrame(animateRain);
+    }
+
+    animateRain();
   </script>
 
 </body>
 </html>
+
+
 
 
 
