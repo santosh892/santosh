@@ -110,6 +110,113 @@
       left: 0;
       z-index: 1; /* behind content */
     }
+
+    /* -------- PLASMA BULB -------- */
+    .plasma-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 20;
+    }
+
+    .plasma-ball {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #111 5%, #333 20%, #555 45%, #111 70%, #000 100%);
+      position: relative;
+      box-shadow: inset 0 0 20px #333, inset 0 0 40px #555, 0 0 5px #000;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .plasma-ball.on {
+      background: radial-gradient(circle, #fff3c4 5%, #ffd380 20%, #ffa500 45%, #ff8c00 70%, #803300 100%);
+      box-shadow:
+        0 0 20px #ffd380,
+        0 0 40px #ffb347,
+        inset 0 0 30px #fff3c4,
+        inset 0 0 40px #ffd380;
+    }
+
+    .beam-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 120px;
+      pointer-events: none;
+    }
+
+    .beam {
+      position: absolute;
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(white, #ffc87c, transparent);
+      left: 50%;
+      top: 50%;
+      transform-origin: top;
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .beam.on {
+      opacity: 1;
+      animation: moveBeam 2s infinite ease-in-out;
+    }
+
+    @keyframes moveBeam {
+      0% { transform: rotate(20deg) scaleY(1); opacity: 1; }
+      50% { transform: rotate(-20deg) scaleY(1.3); opacity: 0.7; }
+      100% { transform: rotate(25deg) scaleY(1); opacity: 1; }
+    }
+
+    .stand {
+      width: 90px;
+      height: 60px;
+      background: #2b2b2b;
+      border-radius: 12px;
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 15px #000;
+    }
+
+    .power-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #000;
+      border: 3px solid #ffa500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 8px #ffb347;
+      transition: all 0.2s;
+    }
+
+    .power-btn.off {
+      border-color: #555;
+      box-shadow: 0 0 3px #000;
+    }
+
+    .power-btn div {
+      width: 10px;
+      height: 10px;
+      border: 2px solid #ffa500;
+      border-radius: 50%;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+
+    .power-btn.off div {
+      border-color: #555;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
   </style>
 </head>
 <body>
@@ -133,6 +240,20 @@
     <button class="warning-button" onclick="goNextPage()">
       <span class="warning-icon">⚠️</span> Click to Continue
     </button>
+  </div>
+
+  <!-- Center Plasma Bulb -->
+  <div class="plasma-container" style="position: fixed; top: calc(30% - 60px); left: 50%; transform: translateX(-50%);">
+    <div id="plasma-center" class="plasma-ball"></div>
+    <div class="beam-container" id="beams-center">
+      <div class="beam" style="transform: rotate(0deg)"></div>
+      <div class="beam" style="transform: rotate(90deg)"></div>
+      <div class="beam" style="transform: rotate(180deg)"></div>
+      <div class="beam" style="transform: rotate(270deg)"></div>
+    </div>
+    <div class="stand">
+      <div id="btn-center" class="power-btn off"><div></div></div>
+    </div>
   </div>
 
   <!-- Rain canvas -->
@@ -170,10 +291,9 @@
       window.location.href = "Next.html";
     }
 
-    // ---------------- RAIN CANVAS ----------------
+    // Rain effect
     const canvas = document.getElementById("canvas-club");
     const ctx = canvas.getContext("2d");
-
     let w = canvas.width = window.innerWidth;
     let h = canvas.height = window.innerHeight;
 
@@ -187,10 +307,7 @@
     }
 
     class Raindrop {
-      constructor() {
-        this.reset();
-      }
-
+      constructor() { this.reset(); }
       reset() {
         this.x = random(0, w);
         this.y = random(-h, 0);
@@ -199,12 +316,10 @@
         this.opacity = random(0.1, 0.5);
         this.width = random(1, 2);
       }
-
       update() {
         this.y += this.speed;
         if (this.y > h) this.reset();
       }
-
       draw(ctx) {
         ctx.beginPath();
         ctx.strokeStyle = `rgba(174,194,224,${this.opacity})`;
@@ -216,220 +331,28 @@
     }
 
     const raindrops = [];
-    const numDrops = 500; // more drops = heavier rain
-
-    for (let i = 0; i < numDrops; i++) {
-      raindrops.push(new Raindrop());
-    }
+    for (let i = 0; i < 500; i++) raindrops.push(new Raindrop());
 
     function animateRain() {
       ctx.clearRect(0, 0, w, h);
-      for (let drop of raindrops) {
-        drop.update();
-        drop.draw(ctx);
-      }
+      for (let drop of raindrops) { drop.update(); drop.draw(ctx); }
       requestAnimationFrame(animateRain);
     }
-
     animateRain();
+
+    // Center plasma bulb button
+    const plasmaCenter = document.getElementById("plasma-center");
+    const beamsCenter = document.getElementById("beams-center").querySelectorAll('.beam');
+    const btnCenter = document.getElementById("btn-center");
+    let isOnCenter = false;
+
+    btnCenter.addEventListener('click', () => {
+      isOnCenter = !isOnCenter;
+      plasmaCenter.classList.toggle('on', isOnCenter);
+      btnCenter.classList.toggle('off', !isOnCenter);
+      beamsCenter.forEach(b => b.classList.toggle('on', isOnCenter));
+    });
   </script>
 
 </body>
 </html>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Warm Plasma Bulbs</title>
-<style>
-    body {
-        background: #111;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        height: 100vh;
-        margin: 0;
-        padding: 40px;
-        font-family: Arial, sans-serif;
-    }
-
-    .plasma-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-    }
-
-    /* Plasma bulb */
-    .plasma-ball {
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        background: radial-gradient(circle, #111 5%, #333 20%, #555 45%, #111 70%, #000 100%);
-        position: relative;
-        box-shadow: inset 0 0 30px #333, inset 0 0 60px #555, 0 0 10px #000;
-        transition: all 0.3s ease;
-        cursor: default;
-        z-index: 0;
-    }
-
-    /* Warm glow ON */
-    .plasma-ball.on {
-        background: radial-gradient(circle, #fff3c4 5%, #ffd380 20%, #ffa500 45%, #ff8c00 70%, #803300 100%);
-        box-shadow:
-            0 0 30px #ffd380,
-            0 0 60px #ffb347,
-            inset 0 0 40px #fff3c4,
-            inset 0 0 60px #ffd380;
-    }
-
-    /* Beams container */
-    .beam-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 180px;
-        height: 180px;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .beam {
-        position: absolute;
-        width: 2px;
-        height: 90px;
-        background: linear-gradient(white, #ffc87c, transparent);
-        left: 50%;
-        top: 50%;
-        transform-origin: top;
-        border-radius: 2px;
-        opacity: 0;
-    }
-
-    .beam.on {
-        opacity: 1;
-        animation: moveBeam 2s infinite ease-in-out;
-    }
-
-    @keyframes moveBeam {
-        0% { transform: rotate(20deg) scaleY(1); opacity: 1; }
-        50% { transform: rotate(-20deg) scaleY(1.3); opacity: 0.7; }
-        100% { transform: rotate(25deg) scaleY(1); opacity: 1; }
-    }
-
-    /* Stand */
-    .stand {
-        width: 120px;
-        height: 80px;
-        background: #2b2b2b;
-        border-radius: 15px;
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 20px #000;
-        position: relative;
-        z-index: 2;
-    }
-
-    /* Power button */
-    .power-btn {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background: #000;
-        border: 3px solid #ffa500;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 0 10px #ffb347;
-        transition: all 0.2s;
-        z-index: 3;
-    }
-
-    .power-btn.off {
-        border-color: #555;
-        box-shadow: 0 0 5px #000;
-    }
-
-    .power-btn div {
-        width: 12px;
-        height: 12px;
-        border: 3px solid #ffa500;
-        border-radius: 50%;
-        border-top-color: transparent;
-        border-left-color: transparent;
-    }
-
-    .power-btn.off div {
-        border-color: #555;
-        border-top-color: transparent;
-        border-left-color: transparent;
-    }
-</style>
-</head>
-<body>
-
-<!-- Left Plasma Bulb -->
-<div class="plasma-container">
-    <div id="plasma-left" class="plasma-ball"></div>
-    <div class="beam-container" id="beams-left">
-        <div class="beam" style="transform: rotate(0deg)"></div>
-        <div class="beam" style="transform: rotate(90deg)"></div>
-        <div class="beam" style="transform: rotate(180deg)"></div>
-        <div class="beam" style="transform: rotate(270deg)"></div>
-    </div>
-    <div class="stand">
-        <div id="btn-left" class="power-btn off"><div></div></div>
-    </div>
-</div>
-
-<!-- Right Plasma Bulb -->
-<div class="plasma-container">
-    <div id="plasma-right" class="plasma-ball"></div>
-    <div class="beam-container" id="beams-right">
-        <div class="beam" style="transform: rotate(0deg)"></div>
-        <div class="beam" style="transform: rotate(90deg)"></div>
-        <div class="beam" style="transform: rotate(180deg)"></div>
-        <div class="beam" style="transform: rotate(270deg)"></div>
-    </div>
-    <div class="stand">
-        <div id="btn-right" class="power-btn off"><div></div></div>
-    </div>
-</div>
-
-<script>
-    function setupPlasma(ballId, beamContainerId, buttonId) {
-        const ball = document.getElementById(ballId);
-        const beams = document.getElementById(beamContainerId).querySelectorAll('.beam');
-        const btn = document.getElementById(buttonId);
-        let isOn = false;
-
-        btn.addEventListener('click', () => {
-            isOn = !isOn;
-            ball.classList.toggle('on', isOn);
-            btn.classList.toggle('off', !isOn);
-            beams.forEach(b => b.classList.toggle('on', isOn));
-        });
-    }
-
-    setupPlasma('plasma-left', 'beams-left', 'btn-left');
-    setupPlasma('plasma-right', 'beams-right', 'btn-right');
-</script>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
