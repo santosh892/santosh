@@ -291,55 +291,7 @@
       window.location.href = "Next.html";
     }
 
-    // Rain effect
-    const canvas = document.getElementById("canvas-club");
-    const ctx = canvas.getContext("2d");
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
-
-    window.addEventListener("resize", () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    });
-
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    class Raindrop {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = random(0, w);
-        this.y = random(-h, 0);
-        this.length = random(10, 20);
-        this.speed = random(4, 10);
-        this.opacity = random(0.1, 0.5);
-        this.width = random(1, 2);
-      }
-      update() {
-        this.y += this.speed;
-        if (this.y > h) this.reset();
-      }
-      draw(ctx) {
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(174,194,224,${this.opacity})`;
-        ctx.lineWidth = this.width;
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x, this.y + this.length);
-        ctx.stroke();
-      }
-    }
-
-    const raindrops = [];
-    for (let i = 0; i < 500; i++) raindrops.push(new Raindrop());
-
-    function animateRain() {
-      ctx.clearRect(0, 0, w, h);
-      for (let drop of raindrops) { drop.update(); drop.draw(ctx); }
-      requestAnimationFrame(animateRain);
-    }
-    animateRain();
-
+    
     // Center plasma bulb button
     const plasmaCenter = document.getElementById("plasma-center");
     const beamsCenter = document.getElementById("beams-center").querySelectorAll('.beam');
@@ -356,3 +308,4 @@
 
 </body>
 </html>
+
